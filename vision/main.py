@@ -56,12 +56,12 @@ def main():
                         (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 2)
 
             # 推流
-            streamer.update_frame(frame)
+            # streamer.update_frame(frame)
             
             # 可选：显示画面（调试用）
-            # cv2.imshow('Camera', frame)
-            # if cv2.waitKey(1) & 0xFF == ord('q'):
-            #     break
+            cv2.imshow('Camera', frame)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
     except KeyboardInterrupt:
         print("\n用户中断")
