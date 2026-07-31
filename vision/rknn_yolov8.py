@@ -132,11 +132,6 @@ class RKNNDetector:
     # --- 对外主要接口 ---
     
     def detect(self, frame):
-        """
-        对输入的一帧图像进行检测并绘制结果
-        :param frame: 原始BGR图像
-        :return: 绘制了检测框的图像
-        """
         # 1. 预处理
         img, r, dw, dh = self.letter_box(frame.copy(), self.target_size, pad_color=(0,0,0))
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -148,12 +143,17 @@ class RKNNDetector:
         # 3. 后处理
         boxes, classes, scores = self.post_process(outputs)
         
-        # 4. 绘制
+        # 【关键修改1】在if外部定义默认值，防止未定义报错
+        real_boxes = None
+        
+        # 4. 绘制并计算真实坐标
         if boxes is not None:
             real_boxes = self.get_real_box(boxes, r, dw, dh)
             self.draw(frame, real_boxes, scores, classes)
             
-        return frame
+        # 【关键修改2】返回4个值，而不是1个
+        return frame, real_boxes, scores, classes
+
 
     def release(self):
         self.rknn.release()

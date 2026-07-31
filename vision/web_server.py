@@ -48,8 +48,8 @@ class VideoStreamer:
                         </style>
                       </head>
                       <body>
-                        <h2>OpenNI2 相机实时视频流</h2>
-                        <img src="/video_feed" width="640" height="480">
+                        <h2>相机实时视频流</h2>
+                        <img src="/video_feed" width="1024" height="576">
                       </body>
                     </html>
                     """
